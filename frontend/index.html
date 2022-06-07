@@ -57,7 +57,7 @@
                                 <button @click="editcharge(index)" type="button" class="btn btn-warning"><i class="fas fa-edit"></i></button>
                             </td>
                             <tr>
-                                <td colspan="7" class="text-center"><button type="button" class="btn btn-success">Payment Report</button></td>
+                                <td colspan="7" class="text-center"><button @click="pReport" type="button" class="btn btn-success">Payment Report</button></td>
                             </tr>
                         </tr>
                     </tbody>
@@ -68,7 +68,7 @@
                     </tbody>
                 </table><br>
                 <div class="card" v-if="adm_actions[0].reportActive === true">
-                    <h5 class="card-header text-center">Payments Report <span><button type="button" class="btn btn-dark"><strong>X</strong></button></span></h5>
+                    <h5 class="card-header text-center">Payments Report <span style="float: right;"><button @click="xbtn" type="button" class="btn btn-dark"><strong>X</strong></button></span></h5>
                     <div class="card-body text-center">
                         <h5 class="card-title">Secretary Payment </h5>
                         <h5 class="card-title">Total to settle: <span v-text=""></span></h5>
@@ -82,11 +82,11 @@
                     </div>
                 </div>
                 <div class="card" v-if="adm_actions[0].ec1 === true">
-                    <h5 class="card-header text-center">Edit Secretary<span style="float: right;"><button type="button" class="btn btn-dark"><strong>X</strong></button></span></h5>
+                    <h5 class="card-header text-center">Edit Secretary<span style="float: right;"><button  @click="xbtn" type="button" class="btn btn-dark"><strong>X</strong></button></span></h5>
                     <div class="card-body text-center">
                         <div class="input-group mb-3">
                             <span class="input-group-text" id="inputGroup-sizing-default">Base Salary: </span>
-                            <input type="number" class="form-control" aria-label="Sizing example input" aria-describedby="inputGroup-sizing-default">
+                            <input v-model.number="adm_actions[0].new_bsalary" type="number" class="form-control" aria-label="Sizing example input" aria-describedby="inputGroup-sizing-default">
                         </div>
                     </div>
                     <div class="btn-group justify-content-center" role="group" aria-label="Basic outlined example" style="margin: auto; width: 20%;">
@@ -95,7 +95,7 @@
                     </div>
                 </div>
                 <div class="card" v-else-if="adm_actions[0].ec2 === true">
-                    <h5 class="card-header text-center">Edit Seller <span style="float: right;"><button type="button" class="btn btn-dark"><strong>X</strong></button></span></h5>
+                    <h5 class="card-header text-center">Edit Seller <span style="float: right;"><button  @click="xbtn" type="button" class="btn btn-dark"><strong>X</strong></button></span></h5>
                     <div class="card-body text-center">
                         <div class="input-group mb-3">
                             <span class="input-group-text" id="inputGroup-sizing-default">Base Salary: </span>
@@ -112,7 +112,7 @@
                     </div>
                 </div>
                 <div class="card" v-else-if="adm_actions[0].ec3 === true">
-                    <h5 class="card-header text-center">Edit Assembler <span style="float: right;"><button type="button" class="btn btn-dark"><strong>X</strong></button></span></h5>
+                    <h5 class="card-header text-center">Edit Assembler <span style="float: right;"><button  @click="xbtn" type="button" class="btn btn-dark"><strong>X</strong></button></span></h5>
                     <div class="card-body text-center">
                         <div class="input-group mb-3">
                             <span class="input-group-text" id="inputGroup-sizing-default">Base Salary: </span>

@@ -18,7 +18,7 @@ var app = new Vue({
             {id: 1, type: '2', price: 100000, assembled: 40, sold: 35,}
         ],
         adm_actions: [
-            {report: '', ec1: '', ec2: '', ec3: '', reportActive: ''}
+            {ec1: '', ec2: '', ec3: '', reportActive: '', new_bsalary: ''}
         ],
         icharge: '',
         test_admview: '',
@@ -51,18 +51,29 @@ var app = new Vue({
         },
         editcharge(index) {
             switch (index) {
-                case index === 1:
+                case 1:
                     this.adm_actions[0].ec1 = true;
+                    this.adm_actions[0].new_bsalary = this.charges[0].b_salary;
+                    this.charges[0].b_salary = this.adm_actions[0].new_bsalary;
                     break;
-            
+                case 2:
+                    this.adm_actions[0].ec2 = true;
+                    break;
+                case 3:
+                    this.adm_actions[0].ec3 = true;
+                    break;
                 default:
                     break;
             }
+        },
+        pReport(){
+            this.adm_actions[0].reportActive = true;
         },
         xbtn(){
             this.adm_actions[0].ec1 = false;
             this.adm_actions[0].ec2 = false;
             this.adm_actions[0].ec3 = false;
+            this.adm_actions[0].reportActive = false;
         },
         secretary_view(){
                 this.test_secretview = 1;
