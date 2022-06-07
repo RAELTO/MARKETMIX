@@ -86,11 +86,11 @@
                     <div class="card-body text-center">
                         <div class="input-group mb-3">
                             <span class="input-group-text" id="inputGroup-sizing-default">Base Salary: </span>
-                            <input v-model.number="adm_actions[0].new_bsalary" type="number" class="form-control" aria-label="Sizing example input" aria-describedby="inputGroup-sizing-default">
+                            <input v-model.number="adm_actions[0].new_bsalary" @keyup.enter="save" type="number" class="form-control" aria-label="Sizing example input" aria-describedby="inputGroup-sizing-default">
                         </div>
                     </div>
                     <div class="btn-group justify-content-center" role="group" aria-label="Basic outlined example" style="margin: auto; width: 20%;">
-                        <button @click="save" @keyup.enter="save" type="button" class="btn btn btn-primary mb-3" >SAVE</button>
+                        <button @click="save" type="button" class="btn btn btn-primary mb-3" >SAVE</button>
                     </div>
                 </div>
                 <div class="card" v-else-if="adm_actions[0].ec2 === true">
@@ -98,16 +98,19 @@
                     <div class="card-body text-center">
                         <div class="input-group mb-3">
                             <span class="input-group-text" id="inputGroup-sizing-default">Base Salary: </span>
-                            <input type="number" class="form-control" aria-label="Sizing example input" aria-describedby="inputGroup-sizing-default">
+                            <input v-model.number="adm_actions[0].new_bsalary" @keyup.enter="save" type="number" class="form-control" aria-label="Sizing example input" aria-describedby="inputGroup-sizing-default">
                         </div>
                         <div class="input-group mb-3">
-                            <span class="input-group-text" id="inputGroup-sizing-default">% Commission: </span>
-                            <input type="number" class="form-control" aria-label="Sizing example input" aria-describedby="inputGroup-sizing-default">
+                            <span class="input-group-text" id="inputGroup-sizing-default">% Commission 1: </span>
+                            <input v-model.number="adm_actions[0].commission1" @keyup.enter="save" type="number" class="form-control" aria-label="Sizing example input" aria-describedby="inputGroup-sizing-default">
+                        </div>
+                        <div class="input-group mb-3">
+                            <span class="input-group-text" id="inputGroup-sizing-default">% Commission 2: </span>
+                            <input v-model.number="adm_actions[0].commission2" @keyup.enter="save" type="number" class="form-control" aria-label="Sizing example input" aria-describedby="inputGroup-sizing-default">
                         </div>
                     </div>
                     <div class="btn-group justify-content-center" role="group" aria-label="Basic outlined example" style="margin: auto; width: 20%;">
-                        <button type="button" class="btn btn btn-primary mb-3" >SAVE</button>
-                        <button type="button" class="btn btn-danger mb-3" >CANCEL</button>
+                        <button  @click="save" type="button" class="btn btn btn-primary mb-3" >SAVE</button>
                     </div>
                 </div>
                 <div class="card" v-else-if="adm_actions[0].ec3 === true">
@@ -115,7 +118,7 @@
                     <div class="card-body text-center">
                         <div class="input-group mb-3">
                             <span class="input-group-text" id="inputGroup-sizing-default">Base Salary: </span>
-                            <input type="number" class="form-control" aria-label="Sizing example input" aria-describedby="inputGroup-sizing-default">
+                            <input v-model.number="adm_actions[0].new_bsalary" type="number" class="form-control" aria-label="Sizing example input" aria-describedby="inputGroup-sizing-default">
                         </div>
                         <div class="input-group mb-3">
                             <span class="input-group-text" id="inputGroup-sizing-default">Max Shoes: </span>
@@ -127,8 +130,7 @@
                         </div>
                     </div>
                     <div class="btn-group justify-content-center" role="group" aria-label="Basic outlined example" style="margin: auto; width: 20%;">
-                        <button type="button" class="btn btn btn-primary mb-3" >SAVE</button>
-                        <button type="button" class="btn btn-danger mb-3" >CANCEL</button>
+                        <button  @click="save" @keyup.enter="save" type="button" class="btn btn btn-primary mb-3" >SAVE</button>
                     </div>
                 </div>
             </div>

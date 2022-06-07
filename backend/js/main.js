@@ -10,7 +10,7 @@ var app = new Vue({
                 id: 1, charge: 'admin', pin: '1234', b_salary: 1600000,
             }, // add name list or employees to list
             {id: 2, charge: 'secretary', pin: '5678', b_salary: 1580000},
-            {id: 3, charge: 'seller', pin: '9012', b_salary: 1485000},
+            {id: 3, charge: 'seller', pin: '9012', b_salary: 1485000, comm1: 10, comm2: 20},
             {id: 4, charge: 'assembler', pin: '3456', b_salary: 1485000},
         ],
         operations: [
@@ -18,7 +18,7 @@ var app = new Vue({
             {id: 1, type: '2', price: 100000, assembled: 40, sold: 35,}
         ],
         adm_actions: [
-            {ec1: '', ec2: '', ec3: '', reportActive: '', new_bsalary: '', pos: '',}
+            {ec1: '', ec2: '', ec3: '', reportActive: '', new_bsalary: '', pos: '', commission1: 10, commission2: 20}
         ],
         icharge: '',
         test_admview: '',
@@ -58,9 +58,17 @@ var app = new Vue({
                     break;
                 case 2:
                     this.adm_actions[0].ec2 = true;
+                    this.adm_actions[0].new_bsalary = this.charges[2].b_salary;
+                    // this.charges[2].comm1 = this.adm_actions[0].commission1;
+                    // this.charges[2].comm2 = this.adm_actions[0].commission2;
+                    // console.log(this.charges[2].comm1);
+                    // console.log(this.charges[2].comm2);
+                    this.adm_actions[0].pos = index;
                     break;
                 case 3:
                     this.adm_actions[0].ec3 = true;
+                    this.adm_actions[0].new_bsalary = this.charges[3].b_salary;
+                    this.adm_actions[0].pos = index;
                     break;
                 default:
                     break;
@@ -68,6 +76,12 @@ var app = new Vue({
         },
         save(){
             this.charges[this.adm_actions[0].pos].b_salary = this.adm_actions[0].new_bsalary;
+            if(this.adm_actions[0].pos === 2){
+                this.charges[2].comm1 = this.adm_actions[0].commission1;
+                this.charges[2].comm2 = this.adm_actions[0].commission2;
+                console.log(this.charges[2].comm1);
+                console.log(this.charges[2].comm2);
+            }
         },
         pReport(){
             this.adm_actions[0].reportActive = true;
