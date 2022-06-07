@@ -90,8 +90,7 @@
                         </div>
                     </div>
                     <div class="btn-group justify-content-center" role="group" aria-label="Basic outlined example" style="margin: auto; width: 20%;">
-                        <button type="button" class="btn btn btn-primary mb-3" >SAVE</button>
-                        <button type="button" class="btn btn-danger mb-3" >CANCEL</button>
+                        <button @click="save" @keyup.enter="save" type="button" class="btn btn btn-primary mb-3" >SAVE</button>
                     </div>
                 </div>
                 <div class="card" v-else-if="adm_actions[0].ec2 === true">

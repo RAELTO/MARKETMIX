@@ -18,7 +18,7 @@ var app = new Vue({
             {id: 1, type: '2', price: 100000, assembled: 40, sold: 35,}
         ],
         adm_actions: [
-            {ec1: '', ec2: '', ec3: '', reportActive: '', new_bsalary: ''}
+            {ec1: '', ec2: '', ec3: '', reportActive: '', new_bsalary: '', pos: '',}
         ],
         icharge: '',
         test_admview: '',
@@ -53,8 +53,8 @@ var app = new Vue({
             switch (index) {
                 case 1:
                     this.adm_actions[0].ec1 = true;
-                    this.adm_actions[0].new_bsalary = this.charges[0].b_salary;
-                    this.charges[0].b_salary = this.adm_actions[0].new_bsalary;
+                    this.adm_actions[0].new_bsalary = this.charges[1].b_salary;
+                    this.adm_actions[0].pos = index;
                     break;
                 case 2:
                     this.adm_actions[0].ec2 = true;
@@ -65,6 +65,9 @@ var app = new Vue({
                 default:
                     break;
             }
+        },
+        save(){
+            this.charges[this.adm_actions[0].pos].b_salary = this.adm_actions[0].new_bsalary;
         },
         pReport(){
             this.adm_actions[0].reportActive = true;
