@@ -33,12 +33,13 @@
                     </div>
                     <div class="input-group mb-3">
                         <span class="input-group-text" id="inputGroup-sizing-default">PIN: </span>
-                        <input v-model="ipin" @keyup.enter="select_view" type="number" class="form-control" aria-label="Sizing example input" aria-describedby="inputGroup-sizing-default">
+                        <input v-model="ipin" @keyup.enter="select_view" type="password" maxlength="4" class="form-control" aria-label="Sizing example input" aria-describedby="inputGroup-sizing-default">
                     </div>
                     <button type="button" class="btn btn btn-primary mb-3" @click="select_view">Login</button>
                 </div>
             </div><br>
-            <div class="container" v-if="test_admview === 1">
+            <!-- ADMIN VIEW --> 
+            <div class="container" v-if="test_admview === ''">
                 <h3 class="text-center"><strong>ADMIN VIEW</strong></h3>
                 <table class="table table-hover">
                     <thead class="table-dark">
@@ -66,8 +67,8 @@
                         </tr>
                     </tbody>
                 </table><br>
-                <div class="card" v-if="">
-                    <h5 class="card-header text-center">Payments Report <span style="float: right;"><button type="button" class="btn btn-dark"><strong>X</strong></button></span></h5>
+                <div class="card" v-if="reportActive === true">
+                    <h5 class="card-header text-center">Payments Report <span><button type="button" class="btn btn-dark"><strong>X</strong></button></span></h5>
                     <div class="card-body text-center">
                         <h5 class="card-title">Secretary Payment </h5>
                         <h5 class="card-title">Total to settle: <span v-text=""></span></h5>
@@ -80,7 +81,7 @@
                         <h5 class="card-title">------------------------------------------------------------</span></h5>
                     </div>
                 </div>
-                <div class="card" v-if="">
+                <div class="card" v-if="ec1 === true">
                     <h5 class="card-header text-center">Edit Secretary<span style="float: right;"><button type="button" class="btn btn-dark"><strong>X</strong></button></span></h5>
                     <div class="card-body text-center">
                         <div class="input-group mb-3">
@@ -93,11 +94,15 @@
                         <button type="button" class="btn btn-danger mb-3" >CANCEL</button>
                     </div>
                 </div>
-                <div class="card" v-else-if="">
+                <div class="card" v-else-if="ec2 === true">
                     <h5 class="card-header text-center">Edit Seller <span style="float: right;"><button type="button" class="btn btn-dark"><strong>X</strong></button></span></h5>
                     <div class="card-body text-center">
                         <div class="input-group mb-3">
                             <span class="input-group-text" id="inputGroup-sizing-default">Base Salary: </span>
+                            <input type="number" class="form-control" aria-label="Sizing example input" aria-describedby="inputGroup-sizing-default">
+                        </div>
+                        <div class="input-group mb-3">
+                            <span class="input-group-text" id="inputGroup-sizing-default">% Commission: </span>
                             <input type="number" class="form-control" aria-label="Sizing example input" aria-describedby="inputGroup-sizing-default">
                         </div>
                     </div>
@@ -106,7 +111,7 @@
                         <button type="button" class="btn btn-danger mb-3" >CANCEL</button>
                     </div>
                 </div>
-                <div class="card" v-else-if="">
+                <div class="card" v-else-if="ec3 === true">
                     <h5 class="card-header text-center">Edit Assembler <span style="float: right;"><button type="button" class="btn btn-dark"><strong>X</strong></button></span></h5>
                     <div class="card-body text-center">
                         <div class="input-group mb-3">
@@ -128,6 +133,9 @@
                     </div>
                 </div>
             </div>
+            <!-- END ADMIN VIEW -->
+
+            <!-- SECRETRY VIEW --> 
             <div class="container" v-if="test_secretview">
                 <h3 class="text-center"><strong>SECRETARY VIEW</strong></h3>
                 <table class="table table-hover">
@@ -173,6 +181,9 @@
                     </div>
                 </div>
             </div>
+            <!-- END SECRETARY VIEW --> 
+
+            <!-- SELLER VIEW --> 
             <div class="container" v-if="test_sellerview === 1">
                 <h3 class="text-center"><strong>SELLER VIEW</strong></h3>
                 <div class="card" v-else-if="">
@@ -196,6 +207,9 @@
                     </div>
                 </div>
             </div>
+            <!-- END SELLER VIEW --> 
+
+            <!-- ASSEMBLER VIEW --> 
             <div class="container" v-if="test_assemblerview === 1">
                 <h3 class="text-center"><strong>ASSEMBLER VIEW</strong></h3>
                 <div class="card" v-else-if="">
@@ -230,6 +244,7 @@
                     </div>
                 </div>
             </div>
+            <!-- END ASSEMBLER VIEW --> 
         </div>
     </div>
 

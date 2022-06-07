@@ -6,7 +6,7 @@ var app = new Vue({
     el: '#app',
     data: {
         charges: [
-            {id: 1, charge: 'admin', pin: '1234', b_salary: 1600000},
+            {id: 1, charge: 'admin', pin: '1234', b_salary: 1600000}, // add name list or employees to list
             {id: 2, charge: 'secretary', pin: '5678', b_salary: 1580000},
             {id: 3, charge: 'seller', pin: '9012', b_salary: 1485000},
             {id: 4, charge: 'assembler', pin: '3456', b_salary: 1485000},
@@ -14,6 +14,9 @@ var app = new Vue({
         operations: [
             {id: 1, type: '1', price: 85000, assembled: 50, sold: 40,},
             {id: 1, type: '2', price: 100000, assembled: 40, sold: 35,}
+        ],
+        adm_actions: [
+            {edit: '', report: '', ec1: '', ec2: '', ec3: '', reportActive: ''}
         ],
         icharge: '',
         test_admview: '',
@@ -43,6 +46,9 @@ var app = new Vue({
         adm_view(){
             this.test_admview = 1;
             this.c_login = '';
+            function editcharge() {
+                this.adm_actions[0].ec1 = true;
+            }
         },
         secretary_view(){
                 this.test_secretview = 1;
