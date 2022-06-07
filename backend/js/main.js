@@ -5,34 +5,34 @@
 var app = new Vue({
     el: '#app',
     data: {
-        charges: [
+        charges: [ //main charges and base salary
             {
                 id: 1, charge: 'admin', pin: '1234', b_salary: 1600000,
-            }, // add name list or employees to list
+            }, // TODO add name list or employees to list
             {id: 2, charge: 'secretary', pin: '5678', b_salary: 1580000},
             {id: 3, charge: 'seller', pin: '9012', b_salary: 1485000, comm1: 10, comm2: 20},
             {id: 4, charge: 'assembler', pin: '3456', b_salary: 1485000},
         ],
-        operations: [
+        operations: [ //to be added into the secretary table
             {id: 1, type: '1', price: 85000, assembled: 50, sold: 40,},
             {id: 1, type: '2', price: 100000, assembled: 40, sold: 35,}
         ],
-        adm_actions: [
+        adm_actions: [ // actions into the admin view
             {ec1: '', ec2: '', ec3: '', reportActive: '', new_bsalary: '', pos: '', commission1: 10, commission2: 20}
         ],
-        icharge: '',
-        test_admview: '',
-        ipin: '',
-        c_login: 1,
-        adm_logout: 0,
-        test_secretview: '',
-        t_sold: 0,
-        t_assm: 0,
-        test_sellerview: '',
-        test_assemblerview: '',
+        icharge: '', // login charge 
+        test_admview: '', //enable admin view if a condition is fulfilled
+        ipin: '', //charge password
+        c_login: 1, //enables or disable the view of the login modal or window 
+        adm_logout: 0, //to enable the logout.... (not enabled yet)
+        test_secretview: '', //enables or disable the secretary view
+        t_sold: 0, //to show values into the admin info table
+        t_assm: 0,//to show values into the admin info table
+        test_sellerview: '',//enables or disable the seller view
+        test_assemblerview: '',//enables or disable the assembler view
     },
     methods: {
-        select_view(){
+        select_view(){ //executes ever view when a condition is fulfilled
             if(this.icharge === 1 && this.ipin === this.charges[0].pin) {
                 this.adm_view();
             }else if(this.icharge === 2 && this.ipin === this.charges[1].pin){
@@ -45,11 +45,11 @@ var app = new Vue({
                 alert('Incorrect PIN or charge doesnt match with pin');
             }
         },
-        adm_view(){
+        adm_view(){//enable the admin view
             this.test_admview = 1;
             this.c_login = '';
         },
-        editcharge(index) {
+        editcharge(index) {//edits the charges basic values
             switch (index) {
                 case 1:
                     this.adm_actions[0].ec1 = true;
@@ -59,10 +59,6 @@ var app = new Vue({
                 case 2:
                     this.adm_actions[0].ec2 = true;
                     this.adm_actions[0].new_bsalary = this.charges[2].b_salary;
-                    // this.charges[2].comm1 = this.adm_actions[0].commission1;
-                    // this.charges[2].comm2 = this.adm_actions[0].commission2;
-                    // console.log(this.charges[2].comm1);
-                    // console.log(this.charges[2].comm2);
                     this.adm_actions[0].pos = index;
                     break;
                 case 3:
@@ -74,7 +70,7 @@ var app = new Vue({
                     break;
             }
         },
-        save(){
+        save(){//save the modified info when the save button is clicked or the key enter is pressed
             this.charges[this.adm_actions[0].pos].b_salary = this.adm_actions[0].new_bsalary;
             if(this.adm_actions[0].pos === 2){
                 this.charges[2].comm1 = this.adm_actions[0].commission1;
