@@ -33,13 +33,13 @@
                     </div>
                     <div class="input-group mb-3">
                         <span class="input-group-text" id="inputGroup-sizing-default">PIN: </span>
-                        <input v-model="test_admpass" @keyup.enter="adm_view" type="number" class="form-control" aria-label="Sizing example input" aria-describedby="inputGroup-sizing-default">
+                        <input v-model="ipin" @keyup.enter="select_view" type="number" class="form-control" aria-label="Sizing example input" aria-describedby="inputGroup-sizing-default">
                     </div>
-                    <button type="button" class="btn btn btn-primary mb-3" @click="adm_view">Login</button>
+                    <button type="button" class="btn btn btn-primary mb-3" @click="select_view">Login</button>
                 </div>
             </div><br>
             <div class="container" v-if="test_admview === 1">
-                <h3 style="text-align: center;">ADMIN VIEW</h3>
+                <h3 class="text-center"><strong>ADMIN VIEW</strong></h3>
                 <table class="table table-hover">
                     <thead class="table-dark">
                         <tr class="text-center">
@@ -125,6 +125,108 @@
                     <div class="btn-group justify-content-center" role="group" aria-label="Basic outlined example" style="margin: auto; width: 20%;">
                         <button type="button" class="btn btn btn-primary mb-3" >SAVE</button>
                         <button type="button" class="btn btn-danger mb-3" >CANCEL</button>
+                    </div>
+                </div>
+            </div>
+            <div class="container" v-if="test_secretview">
+                <h3 class="text-center"><strong>SECRETARY VIEW</strong></h3>
+                <table class="table table-hover">
+                    <thead class="table-dark">
+                        <tr class="text-center">
+                            <th>Type</th>
+                            <th>Price</th>
+                            <th>Amount Assembled</th>
+                            <th>Amount Sold</th>
+                        </tr>
+                    </thead>
+                    <tbody v-if="operations.length">
+                        <tr v-for="(item, index) in operations" :key="item.id" class="text-center">
+                            <td v-text="item.type"></td>
+                            <td v-text="item.price"></td>
+                            <td v-text="item.assembled"></td>
+                            <td v-text="item.sold"></td>
+                            <tr>
+                                <td colspan="2" class="text-center">Total Assembled:</td>
+                                <td colspan="4" v-text="t_assm" class="text-center"></td>
+                            </tr>
+                            <tr>
+                                <td colspan="2" class="text-center">Total Sold:</td>
+                                <td colspan="4" v-text="t_sold" class="text-center"></td>
+                            </tr>
+                        </tr>
+                    </tbody>
+                    <tbody v-else>
+                        <tr>
+                            <td colspan="4" class="text-center">Data not found</td>
+                        </tr>
+                    </tbody>
+                </table><br>
+                <div class="card" v-else-if="">
+                    <div class="card-body text-center">
+                        <div class="input-group mb-3">
+                            <span class="input-group-text" id="inputGroup-sizing-default">Extra Hours Worked: </span>
+                            <input type="number" class="form-control" aria-label="Sizing example input" aria-describedby="inputGroup-sizing-default">
+                        </div>
+                    </div>
+                    <div class="btn-group justify-content-center" role="group" aria-label="Basic outlined example" style="margin: auto; width: 20%;">
+                        <button type="button" class="btn btn btn-primary mb-3" ><strong>SEND</strong></button>
+                    </div>
+                </div>
+            </div>
+            <div class="container" v-if="test_sellerview === 1">
+                <h3 class="text-center"><strong>SELLER VIEW</strong></h3>
+                <div class="card" v-else-if="">
+                    <h5 class="card-header text-center"><strong>SALES</strong></h5>
+                    <div class="card-body text-center">
+                        <div class="input-group mb-3">
+                            <span class="input-group-text" id="inputGroup-sizing-default">Type: </span>
+                            <select class="form-select form-select-lg" aria-label=".form-select-lg example">
+                                <option  selected value="0">Choose the type</option>
+                                <option  value="1" >Shoe</option>
+                                <option value="2" >Sneakers</option>
+                            </select>
+                        </div>
+                        <div class="input-group mb-3">
+                            <span class="input-group-text" id="inputGroup-sizing-default">Amount: </span>
+                            <input type="number" class="form-control" aria-label="Sizing example input" aria-describedby="inputGroup-sizing-default">
+                        </div>
+                    </div>
+                    <div class="btn-group justify-content-center" role="group" aria-label="Basic outlined example" style="margin: auto; width: 20%;">
+                        <button type="button" class="btn btn btn-primary mb-3" ><strong>SEND</strong></button>
+                    </div>
+                </div>
+            </div>
+            <div class="container" v-if="test_assemblerview === 1">
+                <h3 class="text-center"><strong>ASSEMBLER VIEW</strong></h3>
+                <div class="card" v-else-if="">
+                    <h5 class="card-header text-center"><strong>INFO</strong></h5>
+                    <div class="card-body text-center">
+                        <div class="input-group mb-3">
+                            <span class="input-group-text" id="inputGroup-sizing-default">Extra Hours Worked: </span>
+                            <input type="number" class="form-control" aria-label="Sizing example input" aria-describedby="inputGroup-sizing-default">
+                        </div>
+                        <div class="input-group mb-3">
+                            <span class="input-group-text" id="inputGroup-sizing-default">Type: </span>
+                            <select class="form-select form-select-lg" aria-label=".form-select-lg example">
+                                <option  selected value="0">Choose the type</option>
+                                <option  value="1" >Shoes</option>
+                                <option value="2" >Sneakers</option>
+                            </select>
+                        </div>
+                        <div class="input-group mb-3">
+                            <span class="input-group-text" id="inputGroup-sizing-default">Total Assembled: </span>
+                            <input type="number" class="form-control" aria-label="Sizing example input" aria-describedby="inputGroup-sizing-default">
+                        </div>
+                        <label>Do you have any children?</label>
+                        <label class="radio-inline" for="opt1"> <input type="radio" name="opt" id="opt1" value="1"> Yes </label>
+                        <label class="radio-inline" for="opt2"> <input type="radio" name="opt" id="opt2" value="2"> No </label>
+                        <div class="input-group mb-3 mt-3">
+                            <span class="input-group-text" id="inputGroup-sizing-default">How many children? </span>
+                            <input type="number" class="form-control" aria-label="Sizing example input" aria-describedby="inputGroup-sizing-default">
+                        </div>
+                    </div>
+                    <div class="btn-group justify-content-center" role="group" aria-label="Basic outlined example" style="margin: auto; width: 20%;">
+                        <button type="button" class="btn btn btn-primary mb-3" ><strong>SEND</strong></button>
                     </div>
                 </div>
             </div>
