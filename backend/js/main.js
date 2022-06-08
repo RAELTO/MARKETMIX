@@ -125,7 +125,6 @@ var app = new Vue({
             if(this.charges[3].tsneakers > 1700 && this.charges[3].tsneakers < 3000){
                 const increase = (this.adm_actions[0].costsneakers*0.15);
                 this.charges[3].total_pay += increase;
-                console.log(increase);
             }else if(this.charges[3].tsneakers > 3000){
                 const increase = (this.adm_actions[0].costshoes*0.3);
                 this.charges[3].total_pay += increase;
