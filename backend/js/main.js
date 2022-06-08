@@ -29,13 +29,13 @@ var app = new Vue({
             {mod_exhw1: 0, mod_exhw2: 0, tcommission: 0, childrens: 0}
         ],
         icharge: '', // login charge 
-        test_admview: 1, //enable admin view if a condition is fulfilled
+        test_admview: 0, //enable admin view if a condition is fulfilled
         ipin: '', //charge password
         c_login: 1, //enables or disable the view of the login modal or window 
-        test_secretview: 1, //enables or disable the secretary view
+        test_secretview: 0, //enables or disable the secretary view
         t_sold: 0, //to show values into the admin info table
         test_sellerview: 0,//enables or disable the seller view
-        test_assemblerview: 1,//enables or disable the assembler view
+        test_assemblerview: 0,//enables or disable the assembler view
     },
     methods: {
         select_view(){ //executes ever view when a condition is fulfilled
