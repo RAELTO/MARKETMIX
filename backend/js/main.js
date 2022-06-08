@@ -12,28 +12,31 @@ var app = new Vue({
             {
                 id: 4, charge: 'Assembler', pin: '3456', 
                 b_salary: 1485000, mshoes: 15, msneakers: 15, 
-                tshoes: 0, tsneakers: 0, tassembled: 0, extrahw: 0, total_pay: 0
+                tshoes: 0, tsneakers: 0, tassembled: 0, 
+                exh_v: 0, extrahw: 0, subsT: 117200, childrens: 0, total_pay: 0
             },
         ],
         operations: [ //to be added into the secretary table
-            {id: 1, type: 1, price: 85000, assembled: 50, amount: 0, sold: 0},
-            {id: 2, type: 2, price: 100000, assembled: 40, amount: 0, sold: 0}
+            {id: 1, type: 1, price: 85000, assembled: 0, amount: 0, sold: 0},
+            {id: 2, type: 2, price: 100000, assembled: 0, amount: 0, sold: 0}
         ],
         adm_actions: [ // actions into the admin view
-            {ec1: '', ec2: '', ec3: '', reportActive: '', new_bsalary: '', pos: '', commission1: 10, commission2: 20}
+            {ec1: '', ec2: '', ec3: '', reportActive: '', 
+            new_bsalary: 0, pos: '', commission1: 10, commission2: 20, 
+            costshoes: 30000, costsneakers: 45000,}
         ],
         charges_actions: [
-            {mod_exhw1: '', mod_exhw2: '', tcommission: 0,}
+            {mod_exhw1: 0, mod_exhw2: 0, tcommission: 0, childrens: 0}
         ],
         icharge: '', // login charge 
-        test_admview: 0, //enable admin view if a condition is fulfilled
+        test_admview: 1, //enable admin view if a condition is fulfilled
         ipin: '', //charge password
         c_login: 1, //enables or disable the view of the login modal or window 
-        test_secretview: 0, //enables or disable the secretary view
+        test_secretview: 1, //enables or disable the secretary view
         t_sold: 0, //to show values into the admin info table
         t_assm: 0,//to show values into the admin info table
         test_sellerview: 0,//enables or disable the seller view
-        test_assemblerview: '',//enables or disable the assembler view
+        test_assemblerview: 1,//enables or disable the assembler view
     },
     methods: {
         select_view(){ //executes ever view when a condition is fulfilled
@@ -73,7 +76,7 @@ var app = new Vue({
                 default:
                     break;
             }
-        }, //TODO add the option to modify assembling price of shoes and sneakers... maybe in the assembler view
+        },
         save(){//save the modified info when the save button is clicked or the key enter is pressed
             this.charges[this.adm_actions[0].pos].b_salary = this.adm_actions[0].new_bsalary;
             if(this.adm_actions[0].pos === 2){
@@ -83,6 +86,8 @@ var app = new Vue({
         },
         pReport(){
             this.adm_actions[0].reportActive = true;
+
+            //Secretary settlement operations
             this.charges[1].exh_v = ((this.charges[1].b_salary/30)/8)*1.8;
             if(this.charges[1].extrahw > 0) {
                 this.charges[1].total_pay = (this.charges[1].extrahw * this.charges[1].exh_v) + this.charges[1].b_salary;
@@ -90,6 +95,7 @@ var app = new Vue({
                 this.charges[1].total_pay = this.charges[1].b_salary;
             }
 
+            //seller settlement operations
             if(this.charges[2].tsold > 5000000 && this.charges[2].tsold < 10000000) {
                 this.charges_actions[0].tcommission = this.charges[2].b_salary * this.charges[2].comm1;
                 this.charges[2].total_pay = this.charges_actions[0].tcommission + this.charges[2].b_salary + this.charges[2].subsT;
@@ -99,6 +105,38 @@ var app = new Vue({
             }else {
                 this.charges_actions[0].tcommission = 0;
                 this.charges[2].total_pay = this.charges[2].b_salary + this.charges[2].subsT;
+            }
+
+            //assembler settlement operations
+            this.charges[3].exh_v = ((this.charges[3].b_salary/30)/8)*2.2;
+            if(this.charges[3].extrahw > 0) {
+                this.charges[3].total_pay = (this.charges[3].extrahw * this.charges[3].exh_v) + this.charges[3].b_salary;
+            }else{
+                this.charges[3].total_pay = this.charges[3].b_salary;
+            }
+
+            if(this.charges[3].tshoes > 1000 && this.charges[3].tshoes < 2000){
+                const increase = (this.adm_actions[0].costshoes*0.1);
+                this.charges[3].total_pay += increase;
+            }else if(this.charges[3].tshoes > 1000){
+                const increase = (this.adm_actions[0].costshoes*0.2);
+                this.charges[3].total_pay += increase;
+            }
+
+            if(this.charges[3].tsneakers > 1700 && this.charges[3].tsneakers < 3000){
+                const increase = (this.adm_actions[0].costshoes*0.15);
+                this.charges[3].total_pay += increase;
+            }else if(this.charges[3].tsneakers > 3000){
+                const increase = (this.adm_actions[0].costshoes*0.3);
+                this.charges[3].total_pay += increase;
+            }
+
+            if(this.charges[3].childrens > 0 && this.charges[3].childrens < 2){
+                const bonus= 80000;
+                this.charges[3].total_pay += bonus;
+            }else if(this.charges[3].childrens >= 2){
+                const bonus= 60000 * this.charges[3].childrens;
+                this.charges[3].total_pay += bonus;
             }
 
         },
@@ -140,6 +178,12 @@ var app = new Vue({
         assembler_view(){
             this.test_assemblerview = 1;
             this.c_login = '';
+
+        },
+        assembSend(){
+            this.charges[3].extrahw = this.charges_actions[0].mod_exhw2;
+            this.charges[3].tshoes = this.operations[0].assembled;
+            this.charges[3].tsneakers = this.operations[1].assembled;
         }
     }
 });

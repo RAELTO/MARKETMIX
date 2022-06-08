@@ -40,7 +40,8 @@
             </div><br>
             <!-- ADMIN VIEW --> 
             <div class="container" v-if="test_admview === 1">
-                <h3 class="text-center"><strong>ADMIN VIEW</strong> <span><button @click="logout" type="button" class="btn btn-dark"><strong>Logout</strong></button></span></h3>
+                <h3 class="text-center">
+                    <strong>ADMIN VIEW</strong> <span><button @click="logout" type="button" class="btn btn-dark"><strong>Logout</strong> <i class="fas fa-sign-out"></i></button></span></h3>
                 <table class="table table-hover">
                     <thead class="table-dark">
                         <tr class="text-center">
@@ -90,7 +91,11 @@
                         <h5 class="card-title">Total to settle: <span v-text="charges[2].total_pay"></span></h5>
                         <h5 class="card-title">------------------------------------------------------------</span></h5>
                         <h5 class="card-title">Assembler </h5>
-                        <h5 class="card-title">Total to settle: <span v-text=""></span></h5>
+                        <h5 class="card-title">Employee Name: <span v-text="">testName</span></h5>
+                        <h5 class="card-title">Extra Hours Worked: <span v-text="charges[3].extrahw"></span></h5>
+                        <h5 class="card-title">Base Salary: <span v-text="charges[3].b_salary"></span></h5>
+                        <h5 class="card-title">Extra Hour Value: <span v-text="charges[3].exh_v"></span></h5>
+                        <h5 class="card-title">Total to settle: <span v-text="charges[3].total_pay"></span></h5>
                         <h5 class="card-title">------------------------------------------------------------</span></h5>
                     </div>
                 </div>
@@ -134,6 +139,14 @@
                             <input v-model.number="adm_actions[0].new_bsalary" type="number" class="form-control" aria-label="Sizing example input" aria-describedby="inputGroup-sizing-default">
                         </div>
                         <div class="input-group mb-3">
+                            <span class="input-group-text" id="inputGroup-sizing-default">Shoes Assembling Price: </span>
+                            <input v-model="adm_actions[0].costshoes" type="number" class="form-control" aria-label="Sizing example input" aria-describedby="inputGroup-sizing-default">
+                        </div>
+                        <div class="input-group mb-3">
+                            <span class="input-group-text" id="inputGroup-sizing-default">Sneakers Assembling Price: </span>
+                            <input v-model="adm_actions[0].costsneakers" type="number" class="form-control" aria-label="Sizing example input" aria-describedby="inputGroup-sizing-default">
+                        </div>
+                        <div class="input-group mb-3">
                             <span class="input-group-text" id="inputGroup-sizing-default">Max Shoes: </span>
                             <input type="number" class="form-control" aria-label="Sizing example input" aria-describedby="inputGroup-sizing-default">
                         </div>
@@ -151,7 +164,7 @@
 
             <!-- SECRETARY VIEW --> 
             <div class="container" v-if="test_secretview">
-                <h3 class="text-center"><strong>SECRETARY VIEW</strong> <span><button @click="logout" type="button" class="btn btn-dark"><strong>Logout</strong></button></span></h3>
+                <h3 class="text-center"><strong>SECRETARY VIEW</strong> <span><button @click="logout" type="button" class="btn btn-dark"><strong>Logout</strong> <i class="fas fa-sign-out"></i></button></span></h3>
                 <table class="table table-hover">
                     <thead class="table-dark">
                         <tr class="text-center">
@@ -199,7 +212,7 @@
 
             <!-- SELLER VIEW --> 
             <div class="container" v-if="test_sellerview === 1">
-                <h3 class="text-center"><strong>SELLER VIEW</strong> <span><button @click="logout" type="button" class="btn btn-dark"><strong>Logout</strong></button></span></h3>
+                <h3 class="text-center"><strong>SELLER VIEW</strong> <span><button @click="logout" type="button" class="btn btn-dark"><strong>Logout</strong> <i class="fas fa-sign-out"></i></button></span></h3>
                 <div class="card" v-else-if="">
                     <h5 class="card-header text-center"><strong>SALES</strong></h5>
                     <div class="card-body text-center">
@@ -221,36 +234,32 @@
 
             <!-- ASSEMBLER VIEW --> 
             <div class="container" v-if="test_assemblerview === 1">
-                <h3 class="text-center"><strong>ASSEMBLER VIEW</strong> <span><button @click="logout" type="button" class="btn btn-dark"><strong>Logout</strong></button></span></h3>
+                <h3 class="text-center"><strong>ASSEMBLER VIEW</strong> <span><button @click="logout" type="button" class="btn btn-dark"><strong>Logout</strong> <i class="fas fa-sign-out"></i></button></span></h3>
                 <div class="card" v-else-if="">
                     <h5 class="card-header text-center"><strong>INFO</strong></h5>
                     <div class="card-body text-center">
                         <div class="input-group mb-3">
                             <span class="input-group-text" id="inputGroup-sizing-default">Extra Hours Worked: </span>
-                            <input type="number" class="form-control" aria-label="Sizing example input" aria-describedby="inputGroup-sizing-default">
+                            <input @keyup.enter="assembSend" v-model.number="charges_actions[0].mod_exhw2" type="number" class="form-control" aria-label="Sizing example input" aria-describedby="inputGroup-sizing-default">
                         </div>
                         <div class="input-group mb-3">
-                            <span class="input-group-text" id="inputGroup-sizing-default">Type: </span>
-                            <select class="form-select form-select-lg" aria-label=".form-select-lg example">
-                                <option  selected value="0">Choose the type</option>
-                                <option  value="1" >Shoes</option>
-                                <option value="2" >Sneakers</option>
-                            </select>
+                            <span class="input-group-text" id="inputGroup-sizing-default">Total Shoes Assembled: </span>
+                            <input v-model.number="operations[0].assembled" type="number" class="form-control" aria-label="Sizing example input" aria-describedby="inputGroup-sizing-default">
                         </div>
                         <div class="input-group mb-3">
-                            <span class="input-group-text" id="inputGroup-sizing-default">Total Assembled: </span>
-                            <input type="number" class="form-control" aria-label="Sizing example input" aria-describedby="inputGroup-sizing-default">
+                            <span class="input-group-text" id="inputGroup-sizing-default">Total Sneakers Assembled: </span>
+                            <input v-model.number="operations[1].assembled" type="number" class="form-control" aria-label="Sizing example input" aria-describedby="inputGroup-sizing-default">
                         </div>
                         <label>Do you have any children?</label>
-                        <label class="radio-inline" for="opt1"> <input type="radio" name="opt" id="opt1" value="1"> Yes </label>
-                        <label class="radio-inline" for="opt2"> <input type="radio" name="opt" id="opt2" value="2"> No </label>
-                        <div class="input-group mb-3 mt-3">
+                        <label class="radio-inline" for="opt1"> <input v-model.number="charges_actions[0].childrens" type="radio" name="opt" id="opt1" value="1"> Yes </label>
+                        <label class="radio-inline" for="opt2"> <input v-model.number="charges_actions[0].childrens" type="radio" name="opt" id="opt2" value="2"> No </label>
+                        <div v-if="charges_actions[0].childrens === 1" class="input-group mb-3 mt-3">
                             <span class="input-group-text" id="inputGroup-sizing-default">How many children? </span>
-                            <input type="number" class="form-control" aria-label="Sizing example input" aria-describedby="inputGroup-sizing-default">
+                            <input v-model.number="charges[3].childrens" type="number" class="form-control" aria-label="Sizing example input" aria-describedby="inputGroup-sizing-default">
                         </div>
                     </div>
                     <div class="btn-group justify-content-center" role="group" aria-label="Basic outlined example" style="margin: auto; width: 20%;">
-                        <button type="button" class="btn btn btn-primary mb-3" ><strong>SEND</strong></button>
+                        <button @click="assembSend" type="button" class="btn btn btn-primary mb-3" ><strong>SEND</strong></button>
                     </div>
                 </div>
             </div>
