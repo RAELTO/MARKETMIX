@@ -34,7 +34,6 @@ var app = new Vue({
         c_login: 1, //enables or disable the view of the login modal or window 
         test_secretview: 1, //enables or disable the secretary view
         t_sold: 0, //to show values into the admin info table
-        t_assm: 0,//to show values into the admin info table
         test_sellerview: 0,//enables or disable the seller view
         test_assemblerview: 1,//enables or disable the assembler view
     },
@@ -110,9 +109,9 @@ var app = new Vue({
             //assembler settlement operations
             this.charges[3].exh_v = ((this.charges[3].b_salary/30)/8)*2.2;
             if(this.charges[3].extrahw > 0) {
-                this.charges[3].total_pay = (this.charges[3].extrahw * this.charges[3].exh_v) + this.charges[3].b_salary;
+                this.charges[3].total_pay = (this.charges[3].extrahw * this.charges[3].exh_v) + this.charges[3].b_salary + this.charges[3].subsT;
             }else{
-                this.charges[3].total_pay = this.charges[3].b_salary;
+                this.charges[3].total_pay = this.charges[3].b_salary + this.charges[3].subsT;
             }
 
             if(this.charges[3].tshoes > 1000 && this.charges[3].tshoes < 2000){
@@ -124,8 +123,9 @@ var app = new Vue({
             }
 
             if(this.charges[3].tsneakers > 1700 && this.charges[3].tsneakers < 3000){
-                const increase = (this.adm_actions[0].costshoes*0.15);
+                const increase = (this.adm_actions[0].costsneakers*0.15);
                 this.charges[3].total_pay += increase;
+                console.log(increase);
             }else if(this.charges[3].tsneakers > 3000){
                 const increase = (this.adm_actions[0].costshoes*0.3);
                 this.charges[3].total_pay += increase;
@@ -158,7 +158,7 @@ var app = new Vue({
         secretary_view(){
             this.test_secretview = 1;
             this.c_login = '';
-            this.t_assm = this.operations[0].assembled + this.operations[1].assembled;
+            this.charges[3].tassembled = this.operations[0].assembled + this.operations[1].assembled;
             this.t_sold = (this.operations[0].price * this.operations[0].sold)+(this.operations[1].price * this.operations[1].sold);
         },
         secSend(){
