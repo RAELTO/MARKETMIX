@@ -39,8 +39,8 @@
                 </div>
             </div><br>
             <!-- ADMIN VIEW --> 
-            <div class="container" v-if="test_admview === ''">
-                <h3 class="text-center"><strong>ADMIN VIEW</strong></h3>
+            <div class="container" v-if="test_admview === 1">
+                <h3 class="text-center"><strong>ADMIN VIEW</strong> <span><button @click="editcharge(index)" type="button" class="btn btn-dark"><strong>Logout</strong></button></span></h3>
                 <table class="table table-hover">
                     <thead class="table-dark">
                         <tr class="text-center">
@@ -71,7 +71,11 @@
                     <h5 class="card-header text-center">Payments Report <span style="float: right;"><button @click="xbtn" type="button" class="btn btn-dark"><strong>X</strong></button></span></h5>
                     <div class="card-body text-center">
                         <h5 class="card-title">Secretary Payment </h5>
-                        <h5 class="card-title">Total to settle: <span v-text=""></span></h5>
+                        <h5 class="card-title">Employee Name: <span v-text="">testName</span></h5>
+                        <h5 class="card-title">Extra Hours Worked: <span v-text="charges[1].extrahw"></span></h5>
+                        <h5 class="card-title">Base Salary: <span v-text="charges[1].b_salary"></span></h5>
+                        <h5 class="card-title">Extra Hour Value: <span v-text="charges[1].exh_v"></span></h5>
+                        <h5 class="card-title">Total to settle: <span v-text="charges[1].total_pay"></span></h5>
                         <h5 class="card-title">------------------------------------------------------------</span></h5>
                         <h5 class="card-title">Seller </h5>
                         <h5 class="card-title">Total to settle: <span v-text=""></span></h5>

@@ -6,12 +6,10 @@ var app = new Vue({
     el: '#app',
     data: {
         charges: [ //main charges and base salary
-            {
-                id: 1, charge: 'admin', pin: '1234', b_salary: 1600000,
-            }, // TODO add name list or employees to list
-            {id: 2, charge: 'secretary', pin: '5678', b_salary: 1580000},
-            {id: 3, charge: 'seller', pin: '9012', b_salary: 1485000, comm1: 10, comm2: 20},
-            {id: 4, charge: 'assembler', pin: '3456', b_salary: 1485000},
+            {id: 1, charge: 'Admin', pin: '1234', b_salary: 1600000,}, // TODO add name list or employees to list
+            {id: 2, charge: 'Secretary', pin: '5678', b_salary: 1200000, extrahw: 0, exh_v: 9000, total_pay: 0},
+            {id: 3, charge: 'Seller', pin: '9012', b_salary: 1000000, comm1: 10, comm2: 20, subsT: 117200},
+            {id: 4, charge: 'Assembler', pin: '3456', b_salary: 1485000, mshoes: 10, msneakers: 10, extrahw: 0},
         ],
         operations: [ //to be added into the secretary table
             {id: 1, type: '1', price: 85000, assembled: 50, sold: 40,},
@@ -21,7 +19,7 @@ var app = new Vue({
             {ec1: '', ec2: '', ec3: '', reportActive: '', new_bsalary: '', pos: '', commission1: 10, commission2: 20}
         ],
         icharge: '', // login charge 
-        test_admview: '', //enable admin view if a condition is fulfilled
+        test_admview: 1, //enable admin view if a condition is fulfilled
         ipin: '', //charge password
         c_login: 1, //enables or disable the view of the login modal or window 
         adm_logout: 0, //to enable the logout.... (not enabled yet)
@@ -81,6 +79,12 @@ var app = new Vue({
         },
         pReport(){
             this.adm_actions[0].reportActive = true;
+            if(this.charges[1].extrahw > 0) {
+                this.charges[1].total_pay = (this.charges[1].extrahw * this.charges[1].exh_v) + this.charges[1].b_salary;
+            }else{
+                this.charges[1].total_pay = this.charges[1].b_salary;
+            }
+
         },
         xbtn(){
             this.adm_actions[0].ec1 = false;
