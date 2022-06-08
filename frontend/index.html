@@ -78,7 +78,16 @@
                         <h5 class="card-title">Total to settle: <span v-text="charges[1].total_pay"></span></h5>
                         <h5 class="card-title">------------------------------------------------------------</span></h5>
                         <h5 class="card-title">Seller </h5>
-                        <h5 class="card-title">Total to settle: <span v-text=""></span></h5>
+                        <h5 class="card-title">Employee Name: <span v-text="">testName</span></h5>
+                        <h5 class="card-title">Base Salary: <span v-text="charges[2].b_salary"></span></h5>
+                        <h5 class="card-title">Shoes Price: <span v-text="operations[0].price"></span></h5>
+                        <h5 class="card-title">Sneakers Price: <span v-text="operations[1].price"></span></h5>
+                        <h5 class="card-title">Shoes Sold: <span v-text="operations[0].amount"></span></h5>
+                        <h5 class="card-title">Sneakers Sold: <span v-text="operations[1].amount"></span></h5>
+                        <h5 class="card-title">Total Sold: <span v-text="charges[2].tsold"></span></h5>
+                        <h5 class="card-title">Total Commision: <span v-text="charges_actions[0].tcommission"></span></h5>
+                        <h5 class="card-title">Transport Subsidy: <span v-text="charges[2].subsT"></span></h5>
+                        <h5 class="card-title">Total to settle: <span v-text="charges[2].total_pay"></span></h5>
                         <h5 class="card-title">------------------------------------------------------------</span></h5>
                         <h5 class="card-title">Assembler </h5>
                         <h5 class="card-title">Total to settle: <span v-text=""></span></h5>
@@ -157,14 +166,14 @@
                             <td v-text="item.type"></td>
                             <td v-text="item.price"></td>
                             <td v-text="item.assembled"></td>
-                            <td v-text="item.sold"></td>
+                            <td v-text="item.amount"></td>
                             <tr>
                                 <td colspan="2" class="text-center">Total Assembled:</td>
-                                <td colspan="4" v-text="t_assm" class="text-center"></td>
+                                <td colspan="4" v-text="charges[3].tassembled" class="text-center"></td>
                             </tr>
                             <tr>
                                 <td colspan="2" class="text-center">Total Sold:</td>
-                                <td colspan="4" v-text="t_sold" class="text-center"></td>
+                                <td colspan="4" v-text="charges[2].tsold" class="text-center"></td>
                             </tr>
                         </tr>
                     </tbody>
@@ -190,25 +199,21 @@
 
             <!-- SELLER VIEW --> 
             <div class="container" v-if="test_sellerview === 1">
-                <h3 class="text-center"><strong>SELLER VIEW</strong></h3>
+                <h3 class="text-center"><strong>SELLER VIEW</strong> <span><button @click="logout" type="button" class="btn btn-dark"><strong>Logout</strong></button></span></h3>
                 <div class="card" v-else-if="">
                     <h5 class="card-header text-center"><strong>SALES</strong></h5>
                     <div class="card-body text-center">
                         <div class="input-group mb-3">
-                            <span class="input-group-text" id="inputGroup-sizing-default">Type: </span>
-                            <select class="form-select form-select-lg" aria-label=".form-select-lg example">
-                                <option  selected value="0">Choose the type</option>
-                                <option  value="1" >Shoe</option>
-                                <option value="2" >Sneakers</option>
-                            </select>
+                            <span class="input-group-text" id="inputGroup-sizing-default">Number of Shoes Sold: </span>
+                            <input v-model.number="operations[0].amount" type="number" class="form-control" aria-label="Sizing example input" aria-describedby="inputGroup-sizing-default" placeholder="Total amount of shoes and sneakers here">
                         </div>
                         <div class="input-group mb-3">
-                            <span class="input-group-text" id="inputGroup-sizing-default">Amount: </span>
-                            <input type="number" class="form-control" aria-label="Sizing example input" aria-describedby="inputGroup-sizing-default">
+                            <span class="input-group-text" id="inputGroup-sizing-default">Number of Sneakers Sold: </span>
+                            <input v-model.number="operations[1].amount" type="number" class="form-control" aria-label="Sizing example input" aria-describedby="inputGroup-sizing-default" placeholder="Total amount of shoes and sneakers here">
                         </div>
                     </div>
                     <div class="btn-group justify-content-center" role="group" aria-label="Basic outlined example" style="margin: auto; width: 20%;">
-                        <button type="button" class="btn btn btn-primary mb-3" ><strong>SEND</strong></button>
+                        <button @click="sellerSend" type="button" class="btn btn btn-primary mb-3" ><strong>SEND</strong></button>
                     </div>
                 </div>
             </div>
@@ -216,7 +221,7 @@
 
             <!-- ASSEMBLER VIEW --> 
             <div class="container" v-if="test_assemblerview === 1">
-                <h3 class="text-center"><strong>ASSEMBLER VIEW</strong></h3>
+                <h3 class="text-center"><strong>ASSEMBLER VIEW</strong> <span><button @click="logout" type="button" class="btn btn-dark"><strong>Logout</strong></button></span></h3>
                 <div class="card" v-else-if="">
                     <h5 class="card-header text-center"><strong>INFO</strong></h5>
                     <div class="card-body text-center">
