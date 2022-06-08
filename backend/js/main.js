@@ -13,17 +13,19 @@ var app = new Vue({
         ],
         operations: [ //to be added into the secretary table
             {id: 1, type: '1', price: 85000, assembled: 50, sold: 40,},
-            {id: 1, type: '2', price: 100000, assembled: 40, sold: 35,}
+            {id: 2, type: '2', price: 100000, assembled: 40, sold: 35,}
         ],
         adm_actions: [ // actions into the admin view
             {ec1: '', ec2: '', ec3: '', reportActive: '', new_bsalary: '', pos: '', commission1: 10, commission2: 20}
+        ],
+        charges_actions: [
+            {mod_exhw1: '', mod_exhw2: ''}
         ],
         icharge: '', // login charge 
         test_admview: 1, //enable admin view if a condition is fulfilled
         ipin: '', //charge password
         c_login: 1, //enables or disable the view of the login modal or window 
-        adm_logout: 0, //to enable the logout.... (not enabled yet)
-        test_secretview: '', //enables or disable the secretary view
+        test_secretview: 0, //enables or disable the secretary view
         t_sold: 0, //to show values into the admin info table
         t_assm: 0,//to show values into the admin info table
         test_sellerview: '',//enables or disable the seller view
@@ -79,6 +81,7 @@ var app = new Vue({
         },
         pReport(){
             this.adm_actions[0].reportActive = true;
+            this.charges[1].exh_v = ((this.charges[1].b_salary/30)/8)*1.8;
             if(this.charges[1].extrahw > 0) {
                 this.charges[1].total_pay = (this.charges[1].extrahw * this.charges[1].exh_v) + this.charges[1].b_salary;
             }else{
@@ -92,11 +95,23 @@ var app = new Vue({
             this.adm_actions[0].ec3 = false;
             this.adm_actions[0].reportActive = false;
         },
+        logout(){
+            this.test_admview = 0;
+            this.test_secretview= 0;
+            this.test_seller_view = 0;
+            this.test_assemblerview = 0;
+            this.icharge = '';
+            this.ipin = '';
+            this.c_login = 1;
+        },
         secretary_view(){
-                this.test_secretview = 1;
-                this.c_login = '';
-                this.t_assm = this.operations[0].assembled + this.operations[1].assembled;
-                this.t_sold = (this.operations[0].price * this.operations[0].sold)+(this.operations[1].price * this.operations[1].sold);
+            this.test_secretview = 1;
+            this.c_login = '';
+            this.t_assm = this.operations[0].assembled + this.operations[1].assembled;
+            this.t_sold = (this.operations[0].price * this.operations[0].sold)+(this.operations[1].price * this.operations[1].sold);
+        },
+        secSend(){
+            this.charges[1].extrahw = this.charges_actions[0].mod_exhw1;
         },
         seller_view(){
             this.test_sellerview = 1;

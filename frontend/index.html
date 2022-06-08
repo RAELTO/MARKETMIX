@@ -40,7 +40,7 @@
             </div><br>
             <!-- ADMIN VIEW --> 
             <div class="container" v-if="test_admview === 1">
-                <h3 class="text-center"><strong>ADMIN VIEW</strong> <span><button @click="editcharge(index)" type="button" class="btn btn-dark"><strong>Logout</strong></button></span></h3>
+                <h3 class="text-center"><strong>ADMIN VIEW</strong> <span><button @click="logout" type="button" class="btn btn-dark"><strong>Logout</strong></button></span></h3>
                 <table class="table table-hover">
                     <thead class="table-dark">
                         <tr class="text-center">
@@ -140,9 +140,9 @@
             </div>
             <!-- END ADMIN VIEW -->
 
-            <!-- SECRETRY VIEW --> 
+            <!-- SECRETARY VIEW --> 
             <div class="container" v-if="test_secretview">
-                <h3 class="text-center"><strong>SECRETARY VIEW</strong></h3>
+                <h3 class="text-center"><strong>SECRETARY VIEW</strong> <span><button @click="logout" type="button" class="btn btn-dark"><strong>Logout</strong></button></span></h3>
                 <table class="table table-hover">
                     <thead class="table-dark">
                         <tr class="text-center">
@@ -178,11 +178,11 @@
                     <div class="card-body text-center">
                         <div class="input-group mb-3">
                             <span class="input-group-text" id="inputGroup-sizing-default">Extra Hours Worked: </span>
-                            <input type="number" class="form-control" aria-label="Sizing example input" aria-describedby="inputGroup-sizing-default">
+                            <input @keyup.enter="secSend" v-model.number="charges_actions[0].mod_exhw1" type="number" class="form-control" aria-label="Sizing example input" aria-describedby="inputGroup-sizing-default">
                         </div>
                     </div>
                     <div class="btn-group justify-content-center" role="group" aria-label="Basic outlined example" style="margin: auto; width: 20%;">
-                        <button type="button" class="btn btn btn-primary mb-3" ><strong>SEND</strong></button>
+                        <button @click="secSend" type="button" class="btn btn btn-primary mb-3" ><strong>SEND</strong></button>
                     </div>
                 </div>
             </div>
