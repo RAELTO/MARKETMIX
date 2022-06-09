@@ -6,14 +6,13 @@ var app = new Vue({
     el: '#app',
     data: {
         charges: [ //main charges and base salary
-            {id: 1, charge: 'Admin', pin: '1234', b_salary: 1600000,}, // TODO add name list or employees to list
-            {id: 2, charge: 'Secretary', pin: '5678', b_salary: 1200000, extrahw: 0, exh_v: 9000, total_pay: 0},
-            {id: 3, charge: 'Seller', pin: '9012', b_salary: 1000000, comm1: 0.1, comm2: 0.2, subsT: 117200, tsold: 0, total_pay: 0},
+            {id: 1, name: 'Zero', charge: 'Admin', pin: '1234', b_salary: 1600000,}, // TODO add name list or employees to list
+            {id: 2, name: 'Elisa Dweebs', charge: 'Secretary', pin: '5678', b_salary: 1200000, extrahw: 0, exh_v: 9000, total_pay: 0},
+            {id: 3, name: 'Carlo Fontana', charge: 'Seller', pin: '9012', b_salary: 1000000, comm1: 0.1, comm2: 0.2, subsT: 117200, tsold: 0, total_pay: 0},
             {
-                id: 4, charge: 'Assembler', pin: '3456', 
-                b_salary: 1485000, mshoes: 15, msneakers: 15, 
-                tshoes: 0, tsneakers: 0, tassembled: 0, 
-                exh_v: 0, extrahw: 0, subsT: 117200, childrens: 0, total_pay: 0
+                id: 4, name: 'Alberto Arconti', charge: 'Assembler', pin: '3456', 
+                b_salary: 1485000, tshoes: 0, tsneakers: 0, tassembled: 0, mshoes: 0, 
+                msneakers: 0, exh_v: 0, extrahw: 0, subsT: 117200, childrens: 0, total_pay: 0
             },
         ],
         operations: [ //to be added into the secretary table
@@ -23,10 +22,10 @@ var app = new Vue({
         adm_actions: [ // actions into the admin view
             {ec1: '', ec2: '', ec3: '', reportActive: '', 
             new_bsalary: 0, pos: '', commission1: 10, commission2: 20, 
-            costshoes: 30000, costsneakers: 45000,}
+            costshoes: 200, costsneakers: 350, mshoes: 2500, msneakers: 3500}
         ],
         charges_actions: [
-            {mod_exhw1: 0, mod_exhw2: 0, tcommission: 0, childrens: 0}
+            {mod_exhw1: 0, mod_exhw2: 0, tcommission: 0, childrens: 0,}
         ],
         icharge: '', // login charge 
         test_admview: 0, //enable admin view if a condition is fulfilled
@@ -82,6 +81,7 @@ var app = new Vue({
                 this.charges[2].comm1 = this.adm_actions[0].commission1/100;
                 this.charges[2].comm2 = this.adm_actions[0].commission2/100;
             }
+            alert(`Salary updated for the employee: ${this.charges[this.adm_actions[0].pos].name} with Charge: ${this.charges[this.adm_actions[0].pos].charge}`)
         },
         pReport(){
             this.adm_actions[0].reportActive = true;
@@ -115,18 +115,18 @@ var app = new Vue({
             }
 
             if(this.charges[3].tshoes > 1000 && this.charges[3].tshoes < 2000){
-                const increase = (this.adm_actions[0].costshoes*0.1);
+                const increase = (this.adm_actions[0].costshoes*this.charges[3].tshoes)*0.1;
                 this.charges[3].total_pay += increase;
             }else if(this.charges[3].tshoes > 1000){
-                const increase = (this.adm_actions[0].costshoes*0.2);
+                const increase = (this.adm_actions[0].costshoes*this.charges[3].tshoes)*0.2;
                 this.charges[3].total_pay += increase;
             }
 
             if(this.charges[3].tsneakers > 1700 && this.charges[3].tsneakers < 3000){
-                const increase = (this.adm_actions[0].costsneakers*0.15);
+                const increase = (this.adm_actions[0].costsneakers*this.charges[3].tsneakers)*0.15;
                 this.charges[3].total_pay += increase;
             }else if(this.charges[3].tsneakers > 3000){
-                const increase = (this.adm_actions[0].costshoes*0.3);
+                const increase = (this.adm_actions[0].costsneakers*this.charges[3].tsneakers)*0.3;
                 this.charges[3].total_pay += increase;
             }
 
@@ -162,6 +162,7 @@ var app = new Vue({
         },
         secSend(){
             this.charges[1].extrahw = this.charges_actions[0].mod_exhw1;
+            alert("The data has been send");
         },
         seller_view(){
             this.test_sellerview = 1;
@@ -173,16 +174,25 @@ var app = new Vue({
             }else{
                 alert("Please type an amount or press the logout button to return to the login page");
             }
+            alert("The data has been send");
         },
         assembler_view(){
             this.test_assemblerview = 1;
             this.c_login = '';
-
         },
         assembSend(){
-            this.charges[3].extrahw = this.charges_actions[0].mod_exhw2;
-            this.charges[3].tshoes = this.operations[0].assembled;
-            this.charges[3].tsneakers = this.operations[1].assembled;
+            if (this.operations[0].assembled > this.adm_actions[0].mshoes || this.operations[1].assembled > this.adm_actions[0].msneakers) {
+                alert('You have exceeded the max amount of shoes or sneakers allowed to be assembled')
+                this.test_assemblerview = 0;
+                this.icharge = '';
+                this.ipin = '';
+                this.c_login = 1;
+            }else{
+                this.charges[3].extrahw = this.charges_actions[0].mod_exhw2;
+                this.charges[3].tshoes = this.operations[0].assembled;
+                this.charges[3].tsneakers = this.operations[1].assembled;
+                alert("The data has been send");
+            }
         }
     }
 });

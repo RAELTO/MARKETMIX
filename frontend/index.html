@@ -45,6 +45,7 @@
                 <table class="table table-hover">
                     <thead class="table-dark">
                         <tr class="text-center">
+                            <th>Employee Name</th>
                             <th>Charge</th>
                             <th>Salary</th>
                             <th>Actions</th>
@@ -52,6 +53,7 @@
                     </thead>
                     <tbody v-if="charges.length">
                         <tr v-for="(item, index) in charges" :key="item.id" class="text-center">
+                            <td v-text="item.name"></td>
                             <td v-text="item.charge"></td>
                             <td v-text="item.b_salary"></td>
                             <td>
@@ -107,6 +109,10 @@
                     <h5 class="card-header text-center">Edit Secretary<span style="float: right;"><button  @click="xbtn" type="button" class="btn btn-dark"><strong>X</strong></button></span></h5>
                     <div class="card-body text-center">
                         <div class="input-group mb-3">
+                            <span class="input-group-text" id="inputGroup-sizing-default">Name: </span>
+                            <input v-model="charges[1].name" type="text" class="form-control" aria-label="Sizing example input" aria-describedby="inputGroup-sizing-default">
+                        </div>
+                        <div class="input-group mb-3">
                             <span class="input-group-text" id="inputGroup-sizing-default">Base Salary: </span>
                             <input v-model.number="adm_actions[0].new_bsalary" @keyup.enter="save" type="number" class="form-control" aria-label="Sizing example input" aria-describedby="inputGroup-sizing-default">
                         </div>
@@ -118,6 +124,10 @@
                 <div class="card" v-else-if="adm_actions[0].ec2 === true">
                     <h5 class="card-header text-center">Edit Seller <span style="float: right;"><button  @click="xbtn" type="button" class="btn btn-dark"><strong>X</strong></button></span></h5>
                     <div class="card-body text-center">
+                        <div class="input-group mb-3">
+                            <span class="input-group-text" id="inputGroup-sizing-default">Name: </span>
+                            <input v-model="charges[2].name" type="text" class="form-control" aria-label="Sizing example input" aria-describedby="inputGroup-sizing-default">
+                        </div>
                         <div class="input-group mb-3">
                             <span class="input-group-text" id="inputGroup-sizing-default">Base Salary: </span>
                             <input v-model.number="adm_actions[0].new_bsalary" @keyup.enter="save" type="number" class="form-control" aria-label="Sizing example input" aria-describedby="inputGroup-sizing-default">
@@ -139,6 +149,10 @@
                     <h5 class="card-header text-center">Edit Assembler <span style="float: right;"><button  @click="xbtn" type="button" class="btn btn-dark"><strong>X</strong></button></span></h5>
                     <div class="card-body text-center">
                         <div class="input-group mb-3">
+                            <span class="input-group-text" id="inputGroup-sizing-default">Name: </span>
+                            <input v-model="charges[3].name" type="text" class="form-control" aria-label="Sizing example input" aria-describedby="inputGroup-sizing-default">
+                        </div>
+                        <div class="input-group mb-3">
                             <span class="input-group-text" id="inputGroup-sizing-default">Base Salary: </span>
                             <input v-model.number="adm_actions[0].new_bsalary" type="number" class="form-control" aria-label="Sizing example input" aria-describedby="inputGroup-sizing-default">
                         </div>
@@ -152,11 +166,11 @@
                         </div>
                         <div class="input-group mb-3">
                             <span class="input-group-text" id="inputGroup-sizing-default">Max Shoes: </span>
-                            <input type="number" class="form-control" aria-label="Sizing example input" aria-describedby="inputGroup-sizing-default">
+                            <input v-model="adm_actions[0].mshoes" type="number" class="form-control" aria-label="Sizing example input" aria-describedby="inputGroup-sizing-default">
                         </div>
                         <div class="input-group mb-3">
                             <span class="input-group-text" id="inputGroup-sizing-default">Max Sneakers: </span>
-                            <input type="number" class="form-control" aria-label="Sizing example input" aria-describedby="inputGroup-sizing-default">
+                            <input v-model="adm_actions[0].msneakers" type="number" class="form-control" aria-label="Sizing example input" aria-describedby="inputGroup-sizing-default">
                         </div>
                     </div>
                     <div class="btn-group justify-content-center" role="group" aria-label="Basic outlined example" style="margin: auto; width: 20%;">
